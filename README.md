@@ -55,7 +55,7 @@ To ensure the system's reliability and scalability, we generated a dataset of **
 
 ### Key Details:
 - **Python Script**: The script generates random product details, including proper company names, categories, and price ranges.
-- **File Name**: `ecom.csv` is the test dataset used in this project.
+- **File Name**: `E-Commerce(data).csv` is the test dataset used in this project.
 - **Sample Dataset**:
 
 | ProductID | Name       | Company       | Category | Price  | Views |
