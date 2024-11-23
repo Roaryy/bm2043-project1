@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <stdexcept>
-#include <limits> // For numeric_limits
+#include <limits>
 using namespace std;
 
 struct Product {
@@ -93,14 +93,14 @@ vector<Product> loadProducts(const string& filename) {
         return products;
     }
 
-    getline(file, line); // Skip header
-    int lineNumber = 2;  // Start from 2 since the header is line 1
+    getline(file, line);
+    int lineNumber = 2;
     while (getline(file, line)) {
         stringstream ss(line);
         string id, name, company, category, price, views;
 
         try {
-            // Assuming the fields are comma-separated
+            
             getline(ss, id, ',');
             getline(ss, name, ',');
             getline(ss, company, ',');
@@ -139,9 +139,9 @@ void displayProducts(const vector<Product>& products) {
          << setw(10) << "Views" 
          <<endl;
 
-    cout << string(100, '-') << endl; // Print a separator line
+    cout << string(100, '-') << endl; 
 
-    // Print product details
+    
     for (const auto& product : products) {
         cout << left << setw(12) << product.productID 
              << setw(30) << product.name
@@ -157,7 +157,7 @@ void showTopKProducts(const vector<Product>& products, int k, const string& filt
     auto comparator = [&](const Product& a, const Product& b) {
         if (filterBy == "views") return a.views < b.views;
         if (filterBy == "price") return a.price < b.price;
-        return a.views < b.views; // Default to views
+        return a.views < b.views;
     };
 
     priority_queue<Product, vector<Product>, decltype(comparator)> pq(comparator);
@@ -191,7 +191,7 @@ void showTopKProducts(const vector<Product>& products, int k, const string& filt
 void filterProductsByCategory(const vector<Product>& products) {
     string category;
     cout << "Enter category to filter by: ";
-    cin.ignore(); // Ignore leftover newline
+    cin.ignore(); 
     getline(cin, category);
     vector<Product> filteredProducts;
     for (const auto& product : products) {
@@ -209,7 +209,7 @@ void filterProductsByCategory(const vector<Product>& products) {
 void filterProductsByCompany(const vector<Product>& products) {
     string company;
     cout << "Enter company to filter by: ";
-    cin.ignore(); // Ignore leftover newline
+    cin.ignore();
     getline(cin, company);
     vector<Product> filteredProducts;
     for (const auto& product : products) {
@@ -225,7 +225,7 @@ void filterProductsByCompany(const vector<Product>& products) {
 }
 
 void sortProducts(const vector<Product>& products) {
-    vector<Product> sortedProducts = products; // Make a copy
+    vector<Product> sortedProducts = products;
     int sortChoice;
     cout << "Sort by:\n1. Price Ascending\n2. Price Descending\n3. Views Ascending\n4. Views Descending\nEnter choice: ";
     cin >> sortChoice;
@@ -262,7 +262,7 @@ void sortProducts(const vector<Product>& products) {
 }
 
 int main() {
-    string filename = "E-commerce(data).csv"; // Hardcoded filename
+    string filename = "E-commerce(data).csv";
     vector<Product> products = loadProducts(filename);
 
     if (products.empty()) {
