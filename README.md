@@ -68,7 +68,8 @@ Upon running the program, you will be presented with a console-based menu with t
 - Filter Products by Company
 - Search Products by Name (with Autocomplete)
 - Sort Products
-- Exit Enter choice:
+- Exit
+- Enter choice:
 
 
 ### Menu Options Explained
