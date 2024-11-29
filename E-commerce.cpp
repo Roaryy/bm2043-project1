@@ -9,6 +9,8 @@
 #include <limits>
 using namespace std;
 
+// For a product
+
 struct Product {
     int productID;
     string name;
@@ -27,6 +29,7 @@ struct Product {
 
 
 class ProductBST {
+// Storing data and child pointers
     struct TreeNode {
         Product product;
         TreeNode* left;
@@ -36,7 +39,7 @@ class ProductBST {
     };
 
     TreeNode* root;
-
+// Insertion (Recursive) based on product price
     void insert(TreeNode*& node, const Product& product) {
         if (!node) {
             node = new TreeNode(product);
@@ -46,14 +49,14 @@ class ProductBST {
             insert(node->right, product);
         }
     }
-
+// BST Traversal in sorted order
     void inOrderTraversal(TreeNode* node, vector<Product>& products) const {
         if (!node) return;
         inOrderTraversal(node->left, products);
         products.push_back(node->product);
         inOrderTraversal(node->right, products);
     }
-
+// Products in given price range
     void recommendInRange(TreeNode* node, double low, double high, vector<Product>& results) const {
         if (!node) return;
         if (low < node->product.price) recommendInRange(node->left, low, high, results);
@@ -65,7 +68,6 @@ class ProductBST {
 
 public:
     ProductBST() : root(nullptr) {}
-
     void insert(const Product& product) {
         insert(root, product);
     }
@@ -82,7 +84,7 @@ public:
         return results;
     }
 };
-
+// Reading Product data from CSV
 vector<Product> loadProducts(const string& filename) {
     vector<Product> products;
     ifstream file(filename);
@@ -129,7 +131,7 @@ vector<Product> loadProducts(const string& filename) {
     }
     return products;
 }
-
+// Printing Products
 void displayProducts(const vector<Product>& products) {
     cout << left << setw(12) << "Product ID"
          << setw(30) << "Name"
@@ -152,7 +154,7 @@ void displayProducts(const vector<Product>& products) {
     }
 }
 
-
+// Top K products basend on price or views
 void showTopKProducts(const vector<Product>& products, int k, const string& filterBy = "views") {
     auto comparator = [&](const Product& a, const Product& b) {
         if (filterBy == "views") return a.views < b.views;
@@ -187,7 +189,7 @@ void showTopKProducts(const vector<Product>& products, int k, const string& filt
         pq.pop();
     }
 }
-
+// Filtering Products based on Category
 void filterProductsByCategory(const vector<Product>& products) {
     string category;
     cout << "Enter category to filter by: ";
@@ -205,7 +207,7 @@ void filterProductsByCategory(const vector<Product>& products) {
         displayProducts(filteredProducts);
     }
 }
-
+// Product filtering on based of Company
 void filterProductsByCompany(const vector<Product>& products) {
     string company;
     cout << "Enter company to filter by: ";
@@ -223,7 +225,7 @@ void filterProductsByCompany(const vector<Product>& products) {
         displayProducts(filteredProducts);
     }
 }
-
+// Sorting Products based on price or views
 void sortProducts(const vector<Product>& products) {
     vector<Product> sortedProducts = products;
     int sortChoice;
@@ -262,6 +264,7 @@ void sortProducts(const vector<Product>& products) {
 }
 
 int main() {
+    // CSV file is hardcoded, if changing please also change CSV file name
     string filename = "E-commerce(data).csv";
     vector<Product> products = loadProducts(filename);
 
@@ -280,6 +283,7 @@ int main() {
 
     int choice;
     do {
+        // Created Designed Table for Better Viewing 
         cout <<"***************** E-Commerce Recommendation System **************************"
              <<"\n1. Show All Products"
              << "\n2. Show Top K Products by Views"
